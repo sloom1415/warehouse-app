@@ -1,30 +1,46 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
-import { connect } from 'react-redux';
 import { Card, CardItem } from './common';
 
 class OrderDetails extends Component {
-
-  renderDetails() {
+  renderItem({item}) {
+    const details = showProps (item);
     return (
       <Card>
-        <CardItem>
-          <Text>{this.props.order.id}</Text>
-        </CardItem>
-      </Card>
+          <CardItem>
+            <Text style={styles.detailsStyle}>{details}</Text>
+          </CardItem>
+        </Card>
     );
   }
   render() {
     return (
-      <View>
-        {this.renderDetails()}
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={this.props.navigation.state.params}
+          renderItem={this.renderItem}
+          keyExtractor={(item) => item.pk.toString()}
+        />
       </View>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return ({ order: state.selectedPkgId, orders: state.incoming.orders });
-};
+function showProps(obj) {
+  var result = '';
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i)) {
+      result += i + ': ' + obj[i] + '\n';
+    }
+  }
+  return result;
+}
 
-export default connect(mapStateToProps)(OrderDetails);
+const styles = {
+  detailsStyle: {
+    padding: 5,
+    fontSize: 15
+  }
+}
+
+export default OrderDetails;

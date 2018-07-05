@@ -2,19 +2,12 @@ import React from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import List from '../components/List';
-import { INCOMING_ORDER, INCOMING_PKGS } from  '../actions/names';
-import { INCOMING_PKGS_API, setCurrentApi } from '../actions/urls';
-import { fetchOrders } from '../actions';
+import { INCOMING_ORDER } from  '../actions/names';
 
 class IncomingScreen extends React.Component {
   static navigationOptions = {
     title: 'Incoming orders',
   };
-  
-  componentDidlMount() {
-    setCurrentApi(INCOMING_PKGS_API)
-    this.props.dispatch(fetchOrders(INCOMING_PKGS));
-  }
   
   render () {
     return (
@@ -32,7 +25,7 @@ class IncomingScreen extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { orders: state.incoming.orders, loading: state.incoming.loading, error: state.incoming.error };
+  return { orders: state.incoming.items, loading: state.incoming.loading, error: state.incoming.error };
 };
 
 export default connect(mapStateToProps)(IncomingScreen);

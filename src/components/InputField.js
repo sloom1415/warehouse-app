@@ -5,21 +5,6 @@ import { Input, Button } from 'react-native-elements';
 
 
 export default class InputField extends Component {
-    state = {
-        inputValue: '',
-        inputErrorMessage: null,
-        manuallyButtonLoading: false,
-        buttonDisabled: true,
-        iconColor: '#dfdfdf'
-    }
-    onChangeInput(inputValue) {
-        if(inputValue) 
-          return (this.setState({buttonDisabled: false, inputValue, iconColor: '#2196F3', inputErrorMessage: null}));
-        return (this.setState({buttonDisabled: true, inputValue, iconColor: '#dfdfdf', inputErrorMessage: null}));
-      }
-      onPressButton() {
-        this.setState({ inputErrorMessage: 'Sorry wrong code' })
-      }
     render () {
         const { codeInputContainerStyle, inputViewStyle, inputFieldStyle, buttonContainerStyle } = styles;
         return(
@@ -29,19 +14,20 @@ export default class InputField extends Component {
                     containerStyle={inputViewStyle}
                     inputContainerStyle={inputFieldStyle}
                     autoCorrect={false}
-                    value={this.state.inputValue}
-                    onChangeText={this.onChangeInput.bind(this)}
-                    errorMessage={this.state.inputErrorMessage}
+                    value={this.props.inputValue}
+                    onChangeText={this.props.onChangeText}
+                    errorMessage={this.props.errorMessage}
+                    onEndEditing={this.props.onEndEditing}
                     keyboardType='numeric'
                 />
                 <Button 
                     title=''
-                    icon={{name: 'md-checkmark-circle', type:'ionicon', color: this.state.iconColor, size: 40}}
+                    icon={{name: 'md-checkmark-circle', type:'ionicon', color: this.props.iconColor, size: 40}}
                     containerStyle={buttonContainerStyle} 
-                    disabled={this.state.buttonDisabled}
-                    loading={this.state.manuallyButtonLoading}
+                    disabled={this.props.buttonDisabled}
+                    loading={this.props.loading}
                     clear
-                    onPress={this.onPressButton.bind(this)}
+                    onPress={this.props.onPressSubmit}
                 />
             </KeyboardAvoidingView>
         );
@@ -82,10 +68,17 @@ const styles = {
       borderRadius: 50,
       borderWidth: 1,
       borderColor: '#ddd',
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 1,
-      shadowRadius: 10,
+      ...Platform.select( {
+        ios: {
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.8,
+          shadowRadius: 2,
+        },
+        android: {
+          elevation: 3
+        }
+      }),
     },
     buttonContainerStyle: {
       flex: 1,

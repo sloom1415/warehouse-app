@@ -1,3 +1,4 @@
+import { SELECT, DESELECT } from '../actions/types'
 const INITIAL_STATE = {
   id: 0,
   expand: false
@@ -5,10 +6,10 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'select_pkg':
-      return { ...state, id: action.payload };
-    case 'unselect_pkg':
-      return { ...state, id: action.payload };
+    case SELECT:
+      return { ...state, id: action.payload, expand: true };
+    case DESELECT:
+      return { ...state, id: action.payload, expand: false };
     default:
       return state;
   }

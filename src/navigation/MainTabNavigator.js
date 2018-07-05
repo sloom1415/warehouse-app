@@ -23,7 +23,7 @@ const defaultNavigationOptions = {
 const transitionConfig = () => {
   return {
     transitionSpec: {
-      duration: 200,
+      duration: 0,
       useNativeDriver: true,
     }
   }
@@ -78,6 +78,9 @@ BarcodeScanStack.navigationOptions = {
 const OutgoingStack = createStackNavigator({
   Outgoing: {
     screen: OutgoingScreen,
+  },
+  OrderDet: {
+    screen: OrderDetails
   }
 },
 {
@@ -99,14 +102,10 @@ OutgoingStack.navigationOptions = {
 const ItemsStack = createStackNavigator({
   Items: {
     screen: ItemsScreen,
-  },
-  OrderDet: {
-    screen: OrderDetails
   }
-
 },
 {
-  navigationOptions: defaultNavigationOptions,
+  navigationOptions: {header: null},
   transitionConfig
 }
 );

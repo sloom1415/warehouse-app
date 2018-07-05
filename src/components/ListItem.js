@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { connect } from 'react-redux';
+import { Text, TouchableOpacity, View} from 'react-native';
 import { CardItem } from './common';
-import * as actions from '../actions';
 import NavigationService from '../navigation/NavigationService.js';
 
-class ListItem extends Component {
+export default class ListItem extends Component {
 
   renderDetails() {
-    this.props.selectPkg(this.props.item.lname);
-    return NavigationService.navigate('OrderDet');
+    return NavigationService.navigate('OrderDet', this.props.item);
   }
-
 
   render() {
     const { titleStyle } = styles;
-    const { id } = this.props.item;
+    const { pk } = this.props.item;
 
     return (
       <TouchableOpacity onPress={() => this.renderDetails()}>
         <View>
           <CardItem>
-            <Text style={titleStyle}>{id}</Text>
+            <Text style={titleStyle}>{pk}</Text>
           </CardItem>
         </View>
       </TouchableOpacity>
@@ -36,6 +32,3 @@ const styles = {
     paddingLeft: 15
   }
 };
-
-
-export default connect(null, actions)(ListItem);

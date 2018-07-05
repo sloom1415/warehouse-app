@@ -1,8 +1,12 @@
 import React from 'react';
-import { Text, View, Modal, Button } from 'react-native';
+import { Text, View, Modal } from 'react-native';
+import { Button } from 'react-native-elements';
+import { Spinner } from './'
 
-const Confirm = ({ visible, children, onPress1, onPress2, title1, title2, buttonColor1, buttonColor2 = '#f44242' }) => {
-  const { modalStyle, containerStyle, buttonStyle, textStyle } = styles;
+const Confirm = ({ disabled1 ,loading, visible, children, onPress1, onPress2, title1, title2, buttonColor2 = '#f44242' }) => {
+  
+  const { modalStyle, containerStyle, buttonStyle, textStyle, buttonContainerStyle, disabledButtonStyle} = styles;
+  
   return (
     <Modal
       visible={visible}
@@ -11,15 +15,28 @@ const Confirm = ({ visible, children, onPress1, onPress2, title1, title2, button
     >
      <View style={modalStyle}>
         <View style={containerStyle}>
-          <Text style={textStyle}>{children}</Text>
-        <View style={{ flex: 1, flexDirection: 'column' }}>
-          <View style={buttonStyle}>
-            <Button title={title1} onPress={onPress1} color={buttonColor1} />
-          </View>
-          <View style={buttonStyle}>
-            <Button title={title2} onPress={onPress2} color={buttonColor2} />
-          </View>
-      </View>
+          {loading ? (
+            <Spinner />
+          ) : (
+           <View style={{ flex:1 }}>
+              <Text style={textStyle}>{children}</Text>
+             <View style={{ flex: 2, flexDirection: 'column' }}>
+                <Button 
+                  containerStyle={buttonContainerStyle} 
+                  buttonStyle={buttonStyle} 
+                  title={title1} onPress={onPress1} 
+                  disabled={disabled1}
+                  disabledStyle={disabledButtonStyle}
+                  />
+                <Button 
+                  containerStyle={buttonContainerStyle} 
+                  buttonStyle={[buttonStyle, {backgroundColor: buttonColor2 }]} 
+                  title={title2} 
+                  onPress={onPress2} 
+                />
+              </View>
+            </View>
+          )}
         </View>
       </View>
     </Modal>
@@ -37,7 +54,7 @@ const styles = {
     backgroundColor: '#FFF',
     height: 200,
     width: '75%',
-    borderRadius: 5,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff'
   },
@@ -45,13 +62,23 @@ const styles = {
     flex: 1,
     fontSize: 16,
     textAlign: 'center',
-    lineHeight: 40
+    lineHeight: 25,
+    marginTop: 10,
   },
-  buttonStyle: {
-    flex: 1,
+  buttonContainerStyle: {
+    borderRadius: 20,
     marginLeft: 10,
     marginRight: 10,
-    marginBottom: 5
+  },
+  buttonStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 50
+  },
+  disabledButtonStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 50
   }
 };
 export { Confirm };

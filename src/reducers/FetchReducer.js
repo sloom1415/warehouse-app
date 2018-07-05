@@ -10,11 +10,11 @@ const initialState = {
   error: null
 };
 
-export default function FetchReducer(OrderType = '') {
+export default function FetchReducer(ReducerType = '') {
   return(
     function order(state = initialState, action){
       console.log(action);
-      if (action.name !== OrderType) {
+      if (action.name !== ReducerType) {
         return state;
       }
       switch (action.type) {
@@ -29,7 +29,7 @@ export default function FetchReducer(OrderType = '') {
           return {
             ...state,
             loading: false,
-            orders: action.payload.orders
+            items: action.payload.items
           };
 
         case FETCH_FAILURE:
