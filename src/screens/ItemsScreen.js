@@ -60,7 +60,7 @@ class ItemsScreen extends Component {
                 platform={Platform.os === 'ios' ? 'ios' : 'android'}
                 lightTheme
                 value={this.state.searchInput}
-                showLoading={this.props.loading}
+               // showLoading={this.props.loading}
                 containerStyle={styles.searchBarContainerStyle}
             />
         );

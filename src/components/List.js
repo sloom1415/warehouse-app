@@ -46,7 +46,7 @@ export default class List extends Component {
         <FlatList
           data={this.props.data}
           renderItem={this.renderItem}
-          keyExtractor={(item) => item.pk.toString()}
+          keyExtractor={(item) => item.id.toString()}
           refreshing={this.props.loading}
           onRefresh={this.handleRefresh}
           ListEmptyComponent={this.onListEmpty()}

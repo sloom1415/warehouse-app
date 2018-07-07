@@ -40,7 +40,7 @@ class BarcodeScanScreen extends React.Component {
       var checkData = data
       checkData.isChecked = true;
       console.log(checkData);
-      this.props.fetchPut(type, data.pk, checkData)
+      this.props.fetchPut(type, data.id, checkData)
       this.setState({ visible: false, readSuccess: false })
     }
     

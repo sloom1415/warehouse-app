@@ -55,26 +55,6 @@ IncomingStack.navigationOptions = {
   ),
 };
 
-const BarcodeScanStack = createStackNavigator({
-  BarcodeScan: BarcodeScanScreen,
-},
-{
-  navigationOptions: {
-    header: null
-  }
-});
-
-BarcodeScanStack.navigationOptions = {
-  tabBarLabel: 'Barcode Scanner',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      type='ionicon'
-      name={Platform.OS === 'ios' ? `ios-barcode${focused ? '' : '-outline'}` : 'md-barcode'}
-    />
-  ),
-};
-
 const OutgoingStack = createStackNavigator({
   Outgoing: {
     screen: OutgoingScreen,
@@ -95,6 +75,26 @@ OutgoingStack.navigationOptions = {
       type = 'material-community'
       focused={focused}
       name='package-up'
+    />
+  ),
+};
+
+const BarcodeScanStack = createStackNavigator({
+  BarcodeScan: BarcodeScanScreen,
+},
+{
+  navigationOptions: {
+    header: null
+  }
+});
+
+BarcodeScanStack.navigationOptions = {
+  tabBarLabel: 'Barcode Scanner',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      type='ionicon'
+      name={Platform.OS === 'ios' ? `ios-barcode${focused ? '' : '-outline'}` : 'md-barcode'}
     />
   ),
 };
@@ -130,8 +130,7 @@ export default createBottomTabNavigator({
         defaultHandler(navigation.index);
       }
     }
-  },
-  BarcodeScanStack,
+  },  
   Outgoing:  {
     screen: OutgoingStack,
     navigationOptions: {
@@ -141,6 +140,7 @@ export default createBottomTabNavigator({
       }
     }
   },
+  BarcodeScanStack,
   Items:  {
     screen: ItemsStack,
     navigationOptions: {

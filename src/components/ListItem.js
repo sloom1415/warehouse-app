@@ -5,19 +5,20 @@ import NavigationService from '../navigation/NavigationService.js';
 
 export default class ListItem extends Component {
 
+
   renderDetails() {
-    return NavigationService.navigate('OrderDet', this.props.item);
+    return NavigationService.navigate('OrderDet', this.props.item.Packages);
   }
 
   render() {
     const { titleStyle } = styles;
-    const { pk } = this.props.item;
+    const { id } = this.props.item;
 
     return (
       <TouchableOpacity onPress={() => this.renderDetails()}>
         <View>
           <CardItem>
-            <Text style={titleStyle}>{pk}</Text>
+            <Text style={titleStyle}>{id}</Text>
           </CardItem>
         </View>
       </TouchableOpacity>

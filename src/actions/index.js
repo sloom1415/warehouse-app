@@ -110,14 +110,14 @@ export const fetchOrderfailure = (reducerType, error) => ({
 export function matching(inData,outData, query) {
   return dispatch => {
     let match = _.find(inData, item => {
-      return item.pk == query;
+      return item.id == query;
     })
 
     var message = '';
     var type = '';
 
     if(match){
-      message = `Check in this package ID? \n ${match.pk}`;
+      message = `Check in this package ID? \n ${match.id}`;
       type = 'item';
     }
     else {
@@ -125,7 +125,7 @@ export function matching(inData,outData, query) {
         return item.pk == query;
       })
       if(match)
-        message = `Check out this item ID? \n ${match.pk}`;
+        message = `Check out this item ID? \n ${match.id}`;
         type = 'item';
     }
     if(match === undefined) {

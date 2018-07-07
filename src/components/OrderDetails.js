@@ -19,7 +19,7 @@ class OrderDetails extends Component {
         <FlatList
           data={this.props.navigation.state.params}
           renderItem={this.renderItem}
-          keyExtractor={(item) => item.pk.toString()}
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
     );
